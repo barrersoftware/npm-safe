@@ -1,11 +1,18 @@
 BarrerSoftware License (BSL)
-Version 1.0
+Version 1.0 - npm Upstream Contribution Addendum
 
 Copyright (c) 2025 BarrerSoftware
 
 NOTE: This fork is being offered to npm/cli as an upstream contribution (PR #8880).
-If accepted, these changes will be merged under npm's Artistic License 2.0.
-Until then, this fork is available under the BarrerSoftware License below.
+This addendum clarifies how the BSL applies when contributing to open-source projects.
+
+UPSTREAM CONTRIBUTION ADDENDUM:
+When code under this license is contributed to and accepted by an established
+open-source project (such as npm/cli), the contributed code becomes subject to
+that project's existing license (in this case, Artistic License 2.0). This
+addendum does not contradict the core BSL terms - it clarifies that contributions
+to open-source projects follow their licensing while the independent fork remains
+under BSL.
 
 TERMS AND CONDITIONS
 
