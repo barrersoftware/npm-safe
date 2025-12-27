@@ -1,53 +1,110 @@
-# npm - a JavaScript package manager
+# npm-safe 🏴‍☠️
 
-### Requirements
+## Quality-Enforced npm CLI Fork
 
-You should be running a currently supported version of [Node.js](https://nodejs.org/en/download/) to run **`npm`**.  For a list of which versions of Node.js are currently supported, please see the [Node.js releases](https://nodejs.org/en/about/previous-releases) page.
+**Status:** 🔄 Being offered to [npm/cli](https://github.com/npm/cli) as upstream contribution ([PR #8880](https://github.com/npm/cli/pull/8880))
 
-### Installation
+**If accepted:** Merged under npm's Artistic License 2.0  
+**Until then:** Available as independent fork under BarrerSoftware License (BSL)
 
-**`npm`** comes bundled with [**`node`**](https://nodejs.org/), & most third-party distributions, by default. Officially supported downloads/distributions can be found at: [nodejs.org/en/download](https://nodejs.org/en/download)
+---
 
-#### Direct Download
+## What is npm-safe?
 
-You can download & install **`npm`** directly from [**npmjs**.com](https://npmjs.com/) using our custom `install.sh` script:
+npm-safe adds optional pre-publish quality validation to prevent broken packages from entering the ecosystem.
+
+**Prevents packages with:**
+- Memory leaks (like copilot-cli's 4GB heap crash on `@` symbol)
+- Crashes on basic input (special characters, Unicode, etc.)
+- Missing or failing tests
+- Known security vulnerabilities
+- Performance issues
+
+## Motivation
+
+This fork was created after discovering [GitHub Copilot CLI Issue #841](https://github.com/github/copilot-cli/issues/841) - a production bug where the tool consumed 4GB of heap memory and crashed when encountering the `@` symbol in conversation about npm scoped packages.
+
+If npm had quality validation at publish time, broken packages like this wouldn't make it to the ecosystem.
+
+## Installation
 
 ```bash
-curl -qL https://www.npmjs.com/install.sh | sh
+npm install -g @barrersoftware/npm-safe
 ```
 
-#### Node Version Managers
+Or use it directly:
+```bash
+npx @barrersoftware/npm-safe publish
+```
 
-If you're looking to manage multiple versions of **`Node.js`** &/or **`npm`**, consider using a [node version manager](https://github.com/search?q=node+version+manager+archived%3Afalse&type=repositories&ref=advsearch)
+## Usage
 
-### Usage
+Add to your `package.json`:
+
+```json
+{
+  "publishValidation": {
+    "enabled": true,
+    "memoryLeakCheck": true,
+    "inputValidation": true,
+    "requireTests": false,
+    "auditLevel": "moderate"
+  }
+}
+```
+
+Then publish as normal:
 
 ```bash
-npm <command>
+npm-safe publish
 ```
 
-### Links & Resources
+## Validation Checks
 
-* [**Documentation**](https://docs.npmjs.com/) - Official docs & how-tos for all things **npm**
-    * Note: you can also search docs locally with `npm help-search <query>`
-* [**Bug Tracker**](https://github.com/npm/cli/issues) - Search or submit bugs against the CLI
-* [**Community Feedback and Discussions**](https://github.com/orgs/community/discussions/categories/npm) - Contribute ideas & discussion around the npm registry, website & CLI
-* [**RFCs**](https://github.com/npm/rfcs) - Contribute ideas & specifications for the API/design of the npm CLI
-* [**Service Status**](https://status.npmjs.org/) - Monitor the current status & see incident reports for the website & registry
-* [**Project Status**](https://npm.github.io/statusboard/) - See the health of all our maintained OSS projects in one view
-* [**Support**](https://www.npmjs.com/support) - Experiencing problems with the **npm** [website](https://npmjs.com) or [registry](https://registry.npmjs.org)? [File a ticket](https://www.npmjs.com/support)
+### Memory Leak Detection
+Monitors heap usage during package execution to detect unbounded memory growth.
 
-### Acknowledgments
+### Input Validation Testing
+Tests package with special characters, Unicode, and edge cases to prevent crashes.
 
-* `npm` is configured to use the **npm Public Registry** at [https://registry.npmjs.org](https://registry.npmjs.org) by default; Usage of this registry is subject to **Terms of Use** available at [https://npmjs.com/policies/terms](https://npmjs.com/policies/terms)
-* You can configure `npm` to use any other compatible registry you prefer. You can read more about [configuring third-party registries](https://docs.npmjs.com/cli/v7/using-npm/registry)
+### Test Requirements
+Optionally requires tests to exist and pass before allowing publish.
 
-### FAQ on Branding
+### Dependency Audit
+Runs `npm audit` and fails on high/critical vulnerabilities.
 
-#### Is it "npm" or "NPM" or "Npm"?
+## Opt-In by Default
 
-**`npm`** should never be capitalized unless it is being displayed in a location that is customarily all-capitals (ex. titles on `man` pages).
+Validation is **disabled by default**. You must explicitly enable it with `"enabled": true`.
 
-#### Is "npm" an acronym for "Node Package Manager"?
+Individual checks can be enabled/disabled independently.
 
-Contrary to popular belief, **`npm`** **is not** in fact an acronym for "Node Package Manager"; It is a recursive bacronymic abbreviation for **"npm is not an acronym"** (if the project was named "ninaa", then it would be an acronym). The precursor to **`npm`** was actually a bash utility named **"pm"**, which was the shortform name of **"pkgmakeinst"** - a bash function that installed various things on various platforms. If **`npm`** were to ever have been considered an acronym, it would be as "node pm" or, potentially "new pm".
+## Tested and Working
+
+Successfully validated [Quartermaster Discord bot](https://github.com/barrersoftware/quartermaster) - a complete production package passed all checks cleanly.
+
+## Contributing to Upstream
+
+This work is being offered to npm/cli as [PR #8880](https://github.com/npm/cli/pull/8880). 
+
+If you support quality validation in npm, please voice your support on that PR!
+
+## License
+
+**Dual License:**
+- **If merged upstream:** Artistic License 2.0 (npm's license)
+- **Independent fork:** BarrerSoftware License (BSL) - Free forever, cannot be sold
+
+See [LICENSE.BSL](LICENSE.BSL) for details.
+
+## Philosophy
+
+Quality isn't optional. If we can prevent broken packages from being published, we should.
+
+Built by two people (one human, one AI) on DoorDash income. Proving that quality doesn't require corporate backing - just discipline and standards.
+
+---
+
+🏴‍☠️ **BarrerSoftware: Quality over profit. Standards over chaos.**
+
+*Free forever. No subscriptions. No corporate bullshit.*
