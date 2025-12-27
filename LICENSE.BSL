@@ -39,6 +39,9 @@ TERMS AND CONDITIONS
    - Retain this license in all copies and derivatives
    - Credit BarrerSoftware as the original author of the enhancements
    - Include a link to https://github.com/barrersoftware/npm-safe
+   - Acknowledge this is a fork of npm CLI (https://github.com/npm/cli)
+   - Include npm CLI's original Artistic License 2.0 in all distributions
+   - Credit npm contributors for the original npm CLI codebase
 
 5. NO WARRANTY
    THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND.
@@ -47,6 +50,11 @@ TERMS AND CONDITIONS
    These enhancements are offered to npm/cli (https://github.com/npm/cli)
    as an open-source contribution. If accepted upstream, the merged code
    will be governed by npm's Artistic License 2.0.
+   
+   The original npm CLI license (Artistic License 2.0) is preserved in the
+   LICENSE file in this repository. Our enhancements are licensed under BSL
+   (this file) while the underlying npm CLI code remains under its original
+   Artistic License 2.0.
 
 7. TERMINATION
    This license terminates automatically if you violate any terms.
