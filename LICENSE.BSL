@@ -3,6 +3,8 @@ Version 1.0 - npm Upstream Contribution Addendum
 
 Copyright (c) 2025 BarrerSoftware
 
+**Full License:** https://barrersoftware.com/foss-license.html
+
 NOTE: This fork is being offered to npm/cli as an upstream contribution (PR #8880).
 This addendum clarifies how the BSL applies when contributing to open-source projects.
 
